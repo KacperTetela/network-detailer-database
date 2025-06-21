@@ -50,6 +50,17 @@ public record DeviceScanDTO(
     scan.setHostname(hostname);
     scan.setMacAddress(macAddress);
     scan.setIpAddress(ipAddress);
+
+    scan.setCpuManufacture(cpuManufacture);
+    scan.setCpuName(cpuName);
+    scan.setCpuGeneration(cpuGeneration);
+    scan.setCpuGHz(cpuGHz);
+    scan.setRamGB(ramGB);
+    scan.setDiskspaceGB(diskspaceGB);
+    scan.setDiskType(diskType);
+    scan.setBiosVersion(biosVersion);
+    scan.setWindowsRequirement(windowsRequirements);
+
     scan.setUser(user);
     return scan;
   }
