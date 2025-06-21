@@ -25,6 +25,15 @@ public class DeviceScan {
   private String hostname;
   private String macAddress;
   private String ipAddress;
+  private String cpuManufacture;
+  private String cpuName;
+  private int cpuGeneration;
+  private double cpuGHz;
+  private int ramGB;
+  private int diskspaceGB;
+  private String diskType;
+  private String biosVersion;
+  private String windowsRequirement;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)

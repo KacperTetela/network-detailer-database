@@ -5,9 +5,20 @@ import java.time.Instant;
 public record DeviceScanDTO(
     Long id,
     Instant scanTime,
+
     String hostname,
     String macAddress,
     String ipAddress,
+    String cpuManufacture,
+    String cpuName,
+    int cpuGeneration,
+    double cpuGHz,
+    int ramGB,
+    int diskspaceGB,
+    String diskType,
+    String biosVersion,
+    String windowsRequirements,
+
     String username,
     String accessKey) {
 
@@ -15,9 +26,20 @@ public record DeviceScanDTO(
     return new DeviceScanDTO(
         deviceScan.getId(),
         deviceScan.getScanTime(),
+
         deviceScan.getHostname(),
         deviceScan.getMacAddress(),
         deviceScan.getIpAddress(),
+        deviceScan.getCpuManufacture(),
+        deviceScan.getCpuName(),
+        deviceScan.getCpuGeneration(),
+        deviceScan.getCpuGHz(),
+        deviceScan.getRamGB(),
+        deviceScan.getDiskspaceGB(),
+        deviceScan.getDiskType(),
+        deviceScan.getBiosVersion(),
+        deviceScan.getWindowsRequirement(),
+
         deviceScan.getUser().getUsername(),
         deviceScan.getUser().getAccessKey());
   }
