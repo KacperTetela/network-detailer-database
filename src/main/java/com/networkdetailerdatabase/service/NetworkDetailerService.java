@@ -18,9 +18,13 @@ public class NetworkDetailerService {
 
   /** Creates a new user and returns accessKey */
   public String registerUser(String username, String password) {
-    User user = User.create(username, password);
-    userRepository.save(user);
-    return user.getAccessKey();
+    try {
+      User user = User.create(username, password);
+      userRepository.save(user);
+      return user.getAccessKey();
+    } catch (org.springframework.dao.DataIntegrityViolationException e) {
+      throw new IllegalArgumentException("User with username '" + username + "' already exists");
+    }
   }
 
   /** Add new scan if api key is correct */

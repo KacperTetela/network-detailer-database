@@ -20,8 +20,12 @@ public class NetworkDetailerController {
   @PostMapping("/register")
   public ResponseEntity<String> register(
       @RequestParam String username, @RequestParam String password) {
-    String accessKey = networkDetailerService.registerUser(username, password);
-    return ResponseEntity.ok(accessKey);
+    try {
+      String accessKey = networkDetailerService.registerUser(username, password);
+      return ResponseEntity.ok(accessKey);
+    } catch (org.springframework.dao.DataIntegrityViolationException e) {
+      return ResponseEntity.badRequest().body("Username already exists");
+    }
   }
 
   /** Adds a new scan - requires accessKey in header or parameter */
