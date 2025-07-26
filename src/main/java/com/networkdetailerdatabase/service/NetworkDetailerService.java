@@ -20,13 +20,10 @@ public class NetworkDetailerService {
 
   /** Creates a new user and returns accessKey */
   public String registerUser(String username, String password) {
-    try {
-      User user = User.create(username, password);
-      userRepository.save(user);
-      return user.getAccessKey();
-    } catch (DataIntegrityViolationException e) {
-      throw new UserAlreadyExists(username);
-    }
+    if (userRepository.existsByUsername(username)) throw new UserAlreadyExists(username);
+    User user = User.create(username, password);
+    userRepository.save(user);
+    return user.getAccessKey();
   }
 
   /** Add new scan if api key is correct */
