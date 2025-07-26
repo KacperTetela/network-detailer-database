@@ -59,7 +59,6 @@ public class NetworkDetailerController {
 
     List<DeviceScanDTO> dtoList = scans.stream().map(DeviceScanDTO::toDTO).toList();
 
-    //return ResponseEntity.ok(dtoList);
-      return null;
+    return ResponseEntity.ok(dtoList);
   }
 }
