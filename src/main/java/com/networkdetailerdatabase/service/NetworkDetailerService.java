@@ -32,7 +32,7 @@ public class NetworkDetailerService {
     User user =
         userRepository
             .findByAccessKey(accessKey)
-            .orElseThrow(() -> new IllegalArgumentException("Wrong access key"));
+            .orElseThrow(() -> new InvalidCredentialsException());
 
     return deviceScanRepository.save(deviceScanDTO.toEntity(user));
   }
