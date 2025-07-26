@@ -17,7 +17,7 @@ public record DeviceScanDTO(
     int diskspaceGB,
     String diskType,
     String biosVersion,
-    String windowsRequirements,
+    String windowsRequirement,
 
     String username,
     String accessKey) {
@@ -59,7 +59,7 @@ public record DeviceScanDTO(
     scan.setDiskspaceGB(diskspaceGB);
     scan.setDiskType(diskType);
     scan.setBiosVersion(biosVersion);
-    scan.setWindowsRequirement(windowsRequirements);
+    scan.setWindowsRequirement(windowsRequirement);
 
     scan.setUser(user);
     return scan;

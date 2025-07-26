@@ -28,10 +28,4 @@ public class GlobalExceptionHandler {
   public Map<String, String> handleInvalidCredentials(InvalidCredentialsException ex) {
     return Map.of("error", ex.getMessage());
   }
-
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Map<String, String> handleGenericException(Exception ex) {
-    return Map.of("error", "Unexpected server error");
-  }
 }
