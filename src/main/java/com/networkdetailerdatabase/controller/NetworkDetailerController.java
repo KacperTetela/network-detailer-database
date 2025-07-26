@@ -1,6 +1,7 @@
 package com.networkdetailerdatabase.controller;
 
 import com.networkdetailerdatabase.model.DeviceScanDTO;
+import com.networkdetailerdatabase.model.User;
 import com.networkdetailerdatabase.service.NetworkDetailerService;
 import com.networkdetailerdatabase.model.DeviceScan;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +34,28 @@ public class NetworkDetailerController {
     return ResponseEntity.ok(DeviceScanDTO.toDTO(saved));
   }
 
-  /** Downloads all scans for a given user */
-  @GetMapping("/scans")
-  public ResponseEntity<List<DeviceScanDTO>> getScans(
+  /** Downloads all scans for a given accessKey */
+  @GetMapping("/scans/by-key")
+  public ResponseEntity<List<DeviceScanDTO>> getScansByAccessKey(
       @RequestHeader("X-ACCESS-KEY") String accessKey) {
 
-    List<DeviceScan> scans = networkDetailerService.getScansForUser(accessKey);
+    User user = networkDetailerService.authenticate(accessKey);
+
+    List<DeviceScan> scans = networkDetailerService.getScansForUser(user);
+
+    List<DeviceScanDTO> dtoList = scans.stream().map(DeviceScanDTO::toDTO).toList();
+
+    return ResponseEntity.ok(dtoList);
+  }
+
+  /** Downloads all scans for a given user access */
+  @GetMapping("/scans/by-credentials")
+  public ResponseEntity<List<DeviceScanDTO>> getScansByCredentials(
+      @RequestParam String username, @RequestParam String password) {
+
+    User user = networkDetailerService.authenticate(username, password);
+
+    List<DeviceScan> scans = networkDetailerService.getScansForUser(user);
 
     List<DeviceScanDTO> dtoList = scans.stream().map(DeviceScanDTO::toDTO).toList();
 
