@@ -1,11 +1,13 @@
 package com.networkdetailerdatabase.service;
 
+import com.networkdetailerdatabase.exception.UserAlreadyExists;
 import com.networkdetailerdatabase.model.DeviceScan;
 import com.networkdetailerdatabase.model.DeviceScanDTO;
 import com.networkdetailerdatabase.model.User;
 import com.networkdetailerdatabase.repository.DeviceScanRepository;
 import com.networkdetailerdatabase.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +24,8 @@ public class NetworkDetailerService {
       User user = User.create(username, password);
       userRepository.save(user);
       return user.getAccessKey();
-    } catch (org.springframework.dao.DataIntegrityViolationException e) {
-      throw new IllegalArgumentException("User with username '" + username + "' already exists");
+    } catch (DataIntegrityViolationException e) {
+      throw new UserAlreadyExists(username);
     }
   }
 
